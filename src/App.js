@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import bakeryData from "./assets/bakery-data.json";
 import BakeryItem from "./components/BakeryItem";
+import CartItem from "./components/CartItem";
 
 /* ####### DO NOT TOUCH -- this makes the image URLs work ####### */
 bakeryData.forEach((item) => {
@@ -78,14 +79,13 @@ function App() {
               <h2 className="text-4xl font-bold">Cart</h2>
               {/* iterate through and display the cart */}
               {Object.values(cart).map((item) => (
-                <div className="flex flex-row justify-between items-center px-2">
-                  <p className="text-2xl">{item.name}</p>
-                  <div className="flex justify-center items-center">
-                    <button onClick={()=> removeFromCart(item)} className="bg-sky-600 hover:bg-sky-400 hover:shadow-lg active:bg-sky-800  transition-colors duration-100 text-neutral-100 rounded-lg w-10 p-2 m-2">-</button>
-                    <p className="text-2xl">{item.quantity}</p>
-                    <button onClick={()=> addToCart(item)} className="bg-sky-600 hover:bg-sky-400 hover:shadow-lg active:bg-sky-800  transition-colors duration-100 text-neutral-100 rounded-lg p-2 w-10 m-2">+</button>
-                  </div>
-                  </div>))}
+                <>
+                <CartItem item={item} addtocart={addToCart} removefromcart={removeFromCart} key={item.name} />
+                {/* <div className="flex flex-row justify-between items-center px-2">
+                  <CartItem item={item} addToCart={addToCart} removeFromCart={removeFromCart} key={item.name} />
+                </div> */}
+                </>
+                  ))}
                   {!isNaN(total) && total > 0 && <h3 className="font-bold text-2xl">Total: ${total.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]}</h3>}
                   {/* Credit to https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding for regex */}
                   
